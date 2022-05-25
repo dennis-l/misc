@@ -21,9 +21,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install numpy jinja2
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: execute the make_python script
+      - name: execute the make_python [friday] script
         run: |
           python src/make_friday_page.py
+      - name: execute the make_python [landing] script
+        run: |
+          python src/make_landing_page.py
       - name: configure git identity [robot]
         run: |
           git config user.name  'github-actions[bot]'
