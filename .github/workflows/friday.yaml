@@ -1,0 +1,39 @@
+name: np.random.rand
+
+on:
+   schedule: 
+       - cron: '0 20 * * 5'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repos!
+        uses: actions/checkout@v2 
+      - name: setup python environment!
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8 
+      - name: install dependencies!
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy jinja2
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: run np.random.rand
+        run: |
+          python src/friday.py
+      - name: execute the make_python script
+        run: |
+          python src/make_friday_page.py
+      - name: configure git identity [robot]
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: commit changes
+        run: |
+          git add -A
+          git commit -m "weeeeeeeee [friday random + make site]"
+      - name: deploy to website
+        shell: bash
+        run: git push origin 
