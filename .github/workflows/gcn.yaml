@@ -19,11 +19,12 @@ jobs:
       - name: install dependencies!
         run: |
           python -m pip install --upgrade pip
-          pip install numpy jinja2 pandas
+          pip install gcn-kafka
+          pip install numpy jinja2
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute the sitgen make cmd
         run: |
-          make rebuild
+          make website
       - name: configure git identity [robot]
         run: |
           git config user.name  'github-actions[bot]'
@@ -31,7 +32,7 @@ jobs:
       - name: commit changes
         run: |
           git add -A
-          git commit -m "weeeeeeeee [manual rebuild]"
+          git commit -m "weeeeeeeee [just the site]"
       - name: deploy to website
         shell: bash
         run: git push origin 
