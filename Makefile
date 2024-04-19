@@ -1,11 +1,12 @@
 
 updatefriday: randomfriday website
 
-randomfriday: 
+randomfriday:
 	python src/friday.py
 
 calibrator:
 	python src/make_calibrator_page.py
+	python src/make_nopol_page.py
 	python src/make_landing_page.py
 
 website:
@@ -16,3 +17,4 @@ rebuild:
 	python src/make_calibrator_page.py
 	python src/make_friday_page.py
 	python src/make_landing_page.py
+	python src/make_nopol_page.py
