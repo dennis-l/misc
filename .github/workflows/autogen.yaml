@@ -1,9 +1,8 @@
 name: site gen
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '0 0,6,12,18 * * *'
 
 jobs:
   build:
@@ -26,12 +25,12 @@ jobs:
           make rebuild
       - name: configure git identity [robot]
         run: |
-          git config user.name  'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git config user.name "$(git log -n 1 --pretty=format:%an)"
+          git config user.email "$(git log -n 1 --pretty=format:%ae)"
       - name: commit changes
         run: |
           git add -A
-          git commit -m "weeeeeeeee [manual rebuild]"
+          git commit -m "weeeeeeeee! [auto rebuild]"
       - name: deploy to website
         shell: bash
         run: git push origin 
